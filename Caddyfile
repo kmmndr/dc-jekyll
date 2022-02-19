@@ -1,0 +1,17 @@
+{
+  auto_https off
+  admin off
+}
+
+http://:8080 {
+  root * /srv/app/_site
+  log
+
+  file_server
+
+  @jekyll_admin {
+    path /admin*
+    path /_api*
+  }
+  reverse_proxy @jekyll_admin 127.0.0.1:4000
+}

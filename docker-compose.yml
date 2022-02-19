@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  jekyll:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - content:/srv/app
+    ports:
+      - 8080:8080
+      - 4000:4000
+
+volumes:
+  content:
