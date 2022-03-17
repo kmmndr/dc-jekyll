@@ -9,7 +9,9 @@ if [ ! -f _config.yml ]; then
 fi
 
 if [ Gemfile -nt Gemfile.lock ]; then
+  echo "Gemfile has changed, installing ..."
   bundle install
 fi
 
+export JEKYLL_ADMIN_PASSWORD=$(caddy hash-password -algorithm scrypt -plaintext $JEKYLL_ADMIN_PASSWORD)
 goreman -exit-on-error -set-ports=false -f /Procfile start

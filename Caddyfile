@@ -13,5 +13,10 @@ http://:8080 {
     path /admin*
     path /_api*
   }
+
+  basicauth @jekyll_admin scrypt {
+    {$JEKYLL_ADMIN_LOGIN} {$JEKYLL_ADMIN_PASSWORD}
+  }
+
   reverse_proxy @jekyll_admin 127.0.0.1:4000
 }

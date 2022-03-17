@@ -1,11 +1,27 @@
-build:
-	docker-compose build
+default: help
+include makefiles/*.mk
 
-start: build
-	docker-compose up
+.PHONY: build
+build: docker-compose-build
 
-console: build
-	docker-compose run --rm jekyll /bin/ash
+.PHONY: start
+start: docker-compose-build docker-compose-start ##- Start
 
-clean:
-	docker-compose down -v
+.PHONY: deploy
+deploy: docker-compose-pull docker-compose-deploy
+
+.PHONY: stop
+stop: docker-compose-stop ##- Stop
+
+.PHONY: logs
+logs: docker-compose-logs ##- Logs
+
+.PHONY: clean
+clean: docker-compose-clean ##- Stop and remove volumes
+
+.PHONY: status
+status: docker-compose-ps ##- Print container's status
+
+.PHONY: console
+console: environment docker-compose-build ##- Enter console
+	-$(load_env); docker-compose run --rm jekyll /bin/ash

@@ -8,10 +8,6 @@ RUN echo 'gem: --no-document' > ~/.gemrc
 RUN gem install \
       bundler \
       jekyll
-      # minima \
-      # jekyll-feed \
-      # jekyll-admin \
-      # webrick
 
 ENV WORKDIR /srv/app
 WORKDIR $WORKDIR
