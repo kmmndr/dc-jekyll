@@ -1,8 +1,17 @@
 FROM alpine:3.15
-RUN sed -i -e 's|^\(.*\)v3.15/main|@edge-testing \1edge/testing\n&|' /etc/apk/repositories
+RUN sed -i -e 's|^\(.*\)v[0-9.]*/main|@edge-testing \1edge/testing\n&|' /etc/apk/repositories
 
-RUN apk add --no-cache ruby caddy goreman@edge-testing
-RUN apk add --no-cache ruby-dev build-base
+RUN apk add --no-cache \
+      ruby \
+      ruby-dev \
+      build-base \
+      \
+      caddy \
+      goreman@edge-testing \
+      \
+      git \
+      inotify-tools \
+      openssh-client
 
 RUN echo 'gem: --no-document' > ~/.gemrc
 RUN gem install \
@@ -13,5 +22,6 @@ ENV WORKDIR /srv/app
 WORKDIR $WORKDIR
 
 COPY entrypoint.sh Caddyfile Procfile /
+COPY repo.sh /usr/local/bin
 
 CMD /entrypoint.sh

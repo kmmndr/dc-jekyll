@@ -4,9 +4,14 @@ services:
   jekyll:
     build: .
     restart: unless-stopped
+    container_name: jekyll
     environment:
       JEKYLL_ADMIN_LOGIN: ${JEKYLL_ADMIN_LOGIN:-admin}
       JEKYLL_ADMIN_PASSWORD: ${JEKYLL_ADMIN_PASSWORD:-}
+      GIT_USER_NAME: ${GIT_USER_NAME:-Jekyll Admin}
+      GIT_USER_EMAIL: ${GIT_USER_EMAIL:-admin@jekyll.localhost}
+      JEKYLL_SITE_REPOSITORY: ${JEKYLL_SITE_REPOSITORY:-}
+      JEKYLL_SITE_KEY: ${JEKYLL_SITE_KEY:-}
     volumes:
       - content:/srv/app
     ports:
