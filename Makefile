@@ -8,7 +8,7 @@ build: docker-compose-build
 start: docker-compose-build docker-compose-start ##- Start
 
 .PHONY: deploy
-deploy: docker-compose-pull docker-compose-deploy
+deploy: docker-compose-build docker-compose-pull docker-compose-deploy
 
 .PHONY: stop
 stop: docker-compose-stop ##- Stop
