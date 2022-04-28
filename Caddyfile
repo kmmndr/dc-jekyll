@@ -19,4 +19,9 @@ http://:8080 {
   }
 
   reverse_proxy @jekyll_admin 127.0.0.1:4000
+
+  handle_errors {
+    rewrite * /{http.error.status_code}.html
+    file_server
+  }
 }
